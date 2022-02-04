@@ -10,11 +10,27 @@ public:
         for(int i=0;i<K;i++){
             sum+=Arr[i];
         }
+        // int maxi = sum;
+        // for(int i=1;i<=N-K;i++){
+        //     sum = sum - Arr[i-1];
+        //     sum = sum + Arr[i+K-1];
+        //     maxi = max(maxi, sum);
+        // }
+        // return maxi;
+        int i=0;
+        int j=K-1;
         int maxi = sum;
-        for(int i=1;i<=N-K;i++){
-            sum = sum - Arr[i-1];
-            sum = sum + Arr[i+K-1];
-            maxi = max(maxi, sum);
+        while(j<N){
+            if(j-i+1<K){
+                j++;
+            }
+            else if(j-i+1 == K){
+                maxi = max(maxi,sum);
+                sum += Arr[j+1];
+                sum -= Arr[i];
+                i++;
+                j++;
+            }
         }
         return maxi;
     }
