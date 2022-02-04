@@ -7,9 +7,9 @@ class Solution{
 public:
     int maximumSumSubarray(int K, vector<int> &Arr , int N){
         int sum = 0;
-        for(int i=0;i<K;i++){
-            sum+=Arr[i];
-        }
+        // for(int i=0;i<K;i++){
+        //     sum+=Arr[i];
+        // }
         // int maxi = sum;
         // for(int i=1;i<=N-K;i++){
         //     sum = sum - Arr[i-1];
@@ -18,15 +18,15 @@ public:
         // }
         // return maxi;
         int i=0;
-        int j=K-1;
-        int maxi = sum;
+        int j=0;
+        int maxi;
         while(j<N){
+            sum+=Arr[j];
             if(j-i+1<K){
                 j++;
             }
             else if(j-i+1 == K){
                 maxi = max(maxi,sum);
-                sum += Arr[j+1];
                 sum -= Arr[i];
                 i++;
                 j++;
