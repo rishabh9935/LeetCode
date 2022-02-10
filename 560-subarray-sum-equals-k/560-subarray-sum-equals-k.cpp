@@ -5,7 +5,7 @@ public:
         int curr = 0;
         int count=0;
         unordered_map<int , int> map;
-        map[0]=1;
+        map[0]=1;  // we can also use the commented statement below instead of this
         for(int i=0;i<n;i++){
             curr+=nums[i];
             // if(curr-k==0){
