@@ -13,25 +13,56 @@ class Solution {
 public:
 
     vector<int> postorderTraversal(TreeNode* root) {
-        stack<TreeNode*> st1;
-        stack<TreeNode*> st2;
+        stack<TreeNode*> s;
         vector<int> ans;
         if(root == NULL) return ans;
-        st1.push(root);
-        while(!st1.empty()){
-            root = st1.top();
-            st1.pop();
-            st2.push(root);
-            if(root->left != NULL) st1.push(root->left);
-            if(root->right != NULL ) st1.push(root->right);
-        }
-        while(!st2.empty()){
-            ans.push_back(st2.top()->val);
-            st2.pop();
+        TreeNode *temp;
+        TreeNode *curr = root;
+        while(curr != NULL || !s.empty()){
+            if(curr!=NULL){
+                s.push(curr);
+                curr = curr->left;
+            }
+            else{
+                temp = s.top()->right;
+                if(temp == NULL){
+                    temp = s.top();
+                    s.pop();
+                    ans.push_back(temp->val);
+                    while(!s.empty() && temp == s.top()->right){
+                        temp = s.top();
+                        s.pop();
+                        ans.push_back(temp->val);
+                    }
+                }
+                else
+                    curr = temp;
+            }
         }
         return ans;
     }
 };
+
+
+        //stack<TreeNode*> st1;
+        // stack<TreeNode*> st2;
+        // vector<int> ans;
+        // if(root == NULL) return ans;
+        // st1.push(root);
+        // while(!st1.empty()){
+        //     root = st1.top();
+        //     st1.pop();
+        //     st2.push(root);
+        //     if(root->left != NULL) st1.push(root->left);
+        //     if(root->right != NULL ) st1.push(root->right);
+        // }
+        // while(!st2.empty()){
+        //     ans.push_back(st2.top()->val);
+        //     st2.pop();
+        // }
+        // return ans;
+
+
 
     // void dfs(TreeNode* root,vector<int>& post){
     //     if(root == NULL)
