@@ -12,23 +12,21 @@
 class Solution {
 public:
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-         if (inorder.size() != postorder.size())
-            return NULL;
-        map<int,int> hm;
-        for (int i=0;i<inorder.size();++i)
-            hm[inorder[i]] = i;
-        return buildTreePostIn(inorder, 0, inorder.size()-1, postorder, 0, 
-                              postorder.size()-1,hm);
+        if(inorder.size()!=postorder.size()) return NULL;
+        map<int,int> mp;
+        for(int i=0;i<inorder.size();i++){
+            mp[inorder[i]] = i;
+        }
+        return buildTreePostIn(inorder,0,inorder.size()-1,postorder,0,postorder.size()-1,mp);
     }
-    TreeNode* buildTreePostIn(vector<int> &inorder, int is, int ie, vector<int> &postorder, int ps, int pe, 
-                                     map<int,int> &hm){
-        if (ps>pe || is>ie) return NULL;
-        TreeNode* root = new TreeNode(postorder[pe]);
-        int ri = hm[postorder[pe]];
-        TreeNode* leftchild = buildTreePostIn(inorder, is, ri-1, postorder, ps, ps+ri-is-1, hm);
-        TreeNode* rightchild = buildTreePostIn(inorder,ri+1, ie, postorder, ps+ri-is, pe-1, hm);
-        root->left = leftchild;
-        root->right = rightchild;
-        return root;
+    TreeNode* buildTreePostIn(vector<int>& inorder,int inStart,int inEnd, vector<int>& postorder,int postStart, int postEnd, map<int,int> &mp){
+        if(postStart>postEnd || inStart>inEnd) return NULL;
+        TreeNode* root = new TreeNode(postorder[postEnd]);
+        int inRoot = mp[root->val];
+        // int numRight = inEnd - inRoot;
+        int numLeft = inRoot - inStart;
+        root -> left = buildTreePostIn(inorder,inStart,inRoot-1,postorder,postStart,postStart+numLeft-1,mp);
+        root -> right = buildTreePostIn(inorder,inRoot+1,inEnd,postorder,postStart+numLeft,postEnd-1,mp);
+    return root;
     }
 };
