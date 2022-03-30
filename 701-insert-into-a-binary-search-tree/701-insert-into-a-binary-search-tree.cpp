@@ -18,7 +18,7 @@ public:
         TreeNode* last = root;
         TreeNode* prev;
         // TreeNode* node = new TreeNode(val);
-        while(true){
+        while(last){
             if(val < last->val){
                 if(last->left!=NULL)
                     last = last->left;
