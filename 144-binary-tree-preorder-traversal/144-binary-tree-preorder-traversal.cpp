@@ -19,9 +19,9 @@ public:
         while(!s.empty()){
             root = s.top();
             s.pop();
+            ans.push_back(root->val);
             if(root->right != NULL) s.push(root->right);
             if(root->left != NULL) s.push(root->left);
-            ans.push_back(root->val);
         }
         return ans;
     }
