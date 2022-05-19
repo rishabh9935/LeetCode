@@ -1,21 +1,26 @@
 class Solution {
 public:
-    
-    //Recursive + memoization
-    int LCS(string &X,string &Y,int n,int m,vector<vector<int>>&t){
-        if(n==0 || m==0)
-            return 0;
-        if(t[n][m]!=-1) return t[n][m];
-        if(X[n-1]==Y[m-1])
-            return t[n][m] = 1 + LCS(X,Y,n-1,m-1,t);
-        else
-            return t[n][m] = max(LCS(X,Y,n,m-1,t),LCS(X,Y,n-1,m,t));
-    }
+    //top-down
     int longestCommonSubsequence(string text1, string text2) {
-        // memset(t,-1,sizeof(t));
-        int n = text1.size();
-        int m = text2.size();
-        vector<vector<int>>t(n+1,vector<int>(m+1,-1));
-        return LCS(text1,text2,n,m,t);
+        int m = text1.size();
+        int n = text2.size();
+        // vector<vector<int>> dp(m+1,vector<int>(n+1,-1));  
+        int dp[m+1][n+1];
+        for(int i=0;i<m+1;i++){
+            for(int j=0;j<n+1;j++){
+                if(i==0 || j==0)
+                    dp[i][j] = 0;
+            }
+        }
+        for(int i=1;i<m+1;i++){
+            for(int j=1;j<n+1;j++){
+                if(text1[i-1]==text2[j-1]){
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                }
+                else
+                    dp[i][j] = max(dp[i][j-1],dp[i-1][j]);
+            }
+        }
+        return dp[m][n];
     }
 };
