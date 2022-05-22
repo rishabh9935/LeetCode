@@ -23,20 +23,20 @@ public:
         int mn = INT_MAX;
         for(int k=i;k<=j-1;k++){
             if(!isPalindrome(str,i,k)) continue;
-            // int left,right;
-            // if(dp[i][k]!=-1)
-            //     left = dp[i][k];
-            // else{
-            //     left = solve(str,i,k);
-            //     dp[i][k] = left;
-            // }
-            // if(dp[k+1][j]!=-1)
-            //     right = dp[k+1][j];
-            // else{
-            //     right = solve(str,k+1,j);
-            //     dp[k+1][j] = right;
-            // }
-            int temp = 1+solve(str,i,k)+solve(str,k+1,j);
+            int left,right;
+            if(dp[i][k]!=-1)
+                left = dp[i][k];
+            else{
+                left = solve(str,i,k);
+                dp[i][k] = left;
+            }
+            if(dp[k+1][j]!=-1)
+                right = dp[k+1][j];
+            else{
+                right = solve(str,k+1,j);
+                dp[k+1][j] = right;
+            }
+            int temp = 1+left+right;
             mn = min(mn,temp);
         }
         return dp[i][j] = mn;
