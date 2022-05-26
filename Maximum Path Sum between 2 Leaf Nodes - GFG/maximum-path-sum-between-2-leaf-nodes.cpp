@@ -106,11 +106,10 @@ public:
             maxi = max(maxi,l+r+root->data);
             return max(l,r)+root->data;
         }
-        // if(!root->left)
-        //     return root->data + r;
-        // else
-        //     return root->data + l;
-        return root->data+(!root->left ? r:l);
+        if(!root->left)
+            return root->data + r;
+        else
+            return root->data + l;
     }
     
     int maxPathSum(Node* root)
