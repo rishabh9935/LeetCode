@@ -11,9 +11,9 @@ public:
         }
         if(v.size()<=1) return v.size();
         int c = 1;
-        for(int i=1;i<v.size();i++){
-            int j = i-1;
-            if(v[j]+1==v[i]){
+        for(int i=0;i<v.size()-1;i++){
+            int j = i+1;
+            if(v[i]+1==v[j]){
                 c++;
             }
             else c=1;
