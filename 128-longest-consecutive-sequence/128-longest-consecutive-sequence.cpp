@@ -10,10 +10,10 @@ public:
             if(nums[i]!=nums[i-1]) v.push_back(nums[i]);
         }
         if(v.size()<=1) return v.size();
-        int c = 0;
-        for(int i=0;i<v.size();i++){
-            // int j = i+1;
-            if(i>0 && v[i-1]+1==v[i]){
+        int c = 1;
+        for(int i=1;i<v.size();i++){
+            int j = i-1;
+            if(v[j]+1==v[i]){
                 c++;
             }
             else c=1;
