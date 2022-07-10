@@ -11,8 +11,7 @@ class Solution
 	    for(auto it : adj[node]){
 	        if(vis[it]==0){
 	            dfs(it, st, adj, vis);
-	        }else if(vis[it]==1) continue;
-	    }
+	    }}
 	    st.push(node);
 	}
 	//Function to return list containing vertices in Topological order. 
