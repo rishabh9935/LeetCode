@@ -16,8 +16,8 @@ public:
             return;
         }
         ListNode* temp = curr->next;
-        curr->next = prev;
         reverse(head, curr, temp);
+        curr->next = prev;
     }
     
     
