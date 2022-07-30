@@ -14,26 +14,30 @@ public:
         ListNode* ans = NULL;
         ListNode* temp1 = headA;
         ListNode* temp2 = headB;
-        map<ListNode*, int> mp;
-        while(temp1!=NULL){
-            mp[temp1]++;
+        // map<ListNode*, int> mp;
+        // while(temp1!=NULL){
+        //     mp[temp1]++;
+        //     temp1 = temp1->next;
+        // }
+        // while(temp2!=NULL){
+        //     if(mp.find(temp2) != mp.end()){
+        //         ans = temp2;
+        //         break;
+        //     }
+        //     temp2 = temp2->next;
+        // }
+        while(temp1 != NULL){
+            while(temp2 != NULL){
+                if(temp1 == temp2){
+                    ans = temp2;
+                    break;
+                }
+                temp2 = temp2->next;
+            }
+            if(ans!=NULL) break;
+            temp2 = headB;
             temp1 = temp1->next;
         }
-        while(temp2!=NULL){
-            if(mp.find(temp2) != mp.end()){
-                ans = temp2;
-                break;
-            }
-            temp2 = temp2->next;
-        }
-        // while(temp1 != NULL){
-        //     while(temp2 != NULL){
-        //         if(temp1 == temp2){
-        //             ans = temp1;
-        //             break;
-        //         }
-        //     }
-        // }
         return ans;
     }
 };
