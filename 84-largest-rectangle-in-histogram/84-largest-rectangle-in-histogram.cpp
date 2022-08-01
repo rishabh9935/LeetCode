@@ -1,6 +1,6 @@
 class Solution {
 
-    vector<int> findLeft(vector<int> arr, int n){
+    vector<int> findRight(vector<int> arr, int n){
         stack<int> s;
         vector<int> ans(n);
         s.push(-1);
@@ -14,7 +14,7 @@ class Solution {
         return ans;
     }
   
-    vector<int> findRight(vector<int> arr, int n){
+    vector<int> findLeft(vector<int> arr, int n){
         stack<int> s;
         vector<int> ans(n);
         s.push(-1);
@@ -32,9 +32,9 @@ class Solution {
     int largestRectangleArea(vector<int>& heights) {
         int n = heights.size();
         vector<int> left(n);
-        left = findRight(heights, n);
+        left = findLeft(heights, n);
         vector<int> right(n);
-        right = findLeft(heights, n);
+        right = findRight(heights, n);
         int area = INT_MIN;
         for(int i=0;i<n;i++){
             if(right[i] == -1){
