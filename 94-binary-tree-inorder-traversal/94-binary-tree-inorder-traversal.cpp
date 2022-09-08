@@ -31,17 +31,3 @@ public:
         return ans;
     }
 };
-
-//  void dfs(TreeNode* root,vector<int>& in){
-//         if(root == NULL)
-//             return;
-//         dfs(root -> left, in);
-//         in.push_back(root -> val);
-//         dfs(root -> right, in);
-//     }
-    
-//     vector<int> inorderTraversal(TreeNode* root) {
-//         vector<int> in;
-//         dfs(root, in);
-//         return in;
-//     }
