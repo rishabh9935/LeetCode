@@ -11,8 +11,8 @@ public:
     }
     
     int maximumScore(vector<int>& nums, vector<int>& multipliers) {
-        int n = nums.size(), m = multipliers.size();
-        dp.resize(m + 1, vector<int>(m + 1, INT_MIN));
+        int m = multipliers.size();
+        dp.resize(m + 1, vector<int> (m + 1, INT_MIN));
         return help(0, nums, multipliers, 0);
     }
 };
