@@ -1,44 +1,48 @@
 class Solution {
 public:
-    int m,n;
-    
-    bool s(vector<vector<bool>>& ocean, int i, int j, vector<vector<int>>& ht){
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+        vector<vector<int>> ans;
+        if(heights.size()<1) return ans;
+        vector<vector<int>> pacific(heights.size(), 
+                                    vector<int>(heights[0].size(), 0));
+        vector<vector<int>> atlantic(heights.size(), 
+                                    vector<int>(heights[0].size(), 0));
         
-        if (i<0 || j<0 || i==m || j==n || ht[i][j]==100004) return false;
-        if (ocean[i][j]) return true;
-        
-        int k = ht[i][j];
-        ht[i][j]=100004;
-        bool zz = false;
-        if (i>0 && ht[i-1][j]<=k)   zz = zz || s(ocean,i-1,j,ht);
-        if (j>0 && ht[i][j-1]<=k)   zz = zz || s(ocean,i,j-1,ht);
-        if (i<m-1 && ht[i+1][j]<=k) zz = zz || s(ocean,i+1,j,ht);
-        if (j<n-1 && ht[i][j+1]<=k) zz = zz || s(ocean,i,j+1,ht);
-        
-        ocean[i][j]=zz;
-        ht[i][j]=k;
-        return zz;
-        
-    }
-    
-    vector<vector<int>> pacificAtlantic(vector<vector<int>>& ht) {
-        m = ht.size();
-        n = ht[0].size();
-        vector<vector<bool>> pac(m, vector<bool> (n,false));
-        vector<vector<bool>> atl(m, vector<bool> (n,false));
-        for (int i=0; i<m; i++){
-            pac[i][0]=true;
-            atl[i][n-1]=true;
+        for(int i=0;i<heights[0].size();i++){
+             func(heights, 0, i,INT_MIN, pacific);
+             func(heights, heights.size()-1, i,INT_MIN, atlantic);
         }
-        for (int i=0; i<n; i++){
-            pac[0][i]=true;
-            atl[m-1][i]=true;
+        
+        for(int i=0;i<heights.size();i++){
+             func(heights, i, 0,INT_MIN, pacific);
+             func(heights, i, heights[0].size()-1,INT_MIN, atlantic);
         }
-        vector<vector<int>> res;
-        for (int i=0; i<m; i++){
-            for (int j=0; j<n; j++){
-                if (s(pac,i,j,ht) && s(atl,i,j,ht)) res.push_back({i,j});
+        
+        for(int i=0;i<heights.size();i++){
+            for(int j=0;j<heights[0].size();j++){
+                if(pacific[i][j] == 1 && atlantic[i][j] == 1){
+                    ans.push_back({i, j});
+                }
             }
-        }return res;
+        }
+        return ans;
+        
     }
+    
+    void func(vector<vector<int>>& heights, int i, int j, 
+              int prev, vector<vector<int>>& ocean){
+        if(i<0 || j<0 || i>=heights.size() || j>=heights[0].size())
+            return;
+        if(ocean[i][j] == 1) 
+            return;
+        if(heights[i][j]<prev)
+            return;
+        ocean[i][j] = 1;
+        func(heights, i+1, j, heights[i][j], ocean);
+        func(heights, i-1, j, heights[i][j], ocean);
+        func(heights, i, j+1, heights[i][j], ocean);
+        func(heights, i, j-1, heights[i][j], ocean);
+    }
+    
+    
 };
